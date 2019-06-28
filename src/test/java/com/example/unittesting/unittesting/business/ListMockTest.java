@@ -1,7 +1,10 @@
 package com.example.unittesting.unittesting.business;
 
+import net.bytebuddy.asm.Advice;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -52,5 +55,55 @@ public class ListMockTest {
         verify(mock,atLeastOnce()).get(anyInt());
         verify(mock,atMost(2)).get(anyInt());
         verify(mock,never()).get(anyInt());
+    }
+
+    @Test
+    public void argumentCapturing(){
+        mock.add("SomeString");
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(mock).add(captor.capture());
+        assertEquals("SomeString",captor.getValue());
+    }
+    @Test
+    public void multipleArgumentCapturing(){
+        mock.add("SomeString1");
+        mock.add("SomeString2");
+
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+
+        verify(mock,times(2)).add(captor.capture());
+
+        List<String> allVAlues = captor.getAllValues();
+
+        assertEquals("SomeString1",allVAlues.get(0));
+        assertEquals("SomeString2",allVAlues.get(1));
+    }
+
+    @Test
+    public void mocking(){
+        ArrayList arrayListMock = mock(ArrayList.class);
+        System.out.println(arrayListMock.get(0));
+        System.out.println(arrayListMock.size());
+        arrayListMock.add("test");
+        arrayListMock.add("test2");
+        System.out.println(arrayListMock.size());
+        when(arrayListMock.size()).thenReturn(5);
+        System.out.println(arrayListMock.size());
+
+    }
+    @Test
+    public void spying(){
+        ArrayList arrayListSpy = spy(ArrayList.class);
+        arrayListSpy.add("test0");
+        System.out.println(arrayListSpy.get(0));
+        System.out.println(arrayListSpy.size());
+        arrayListSpy.add("test");
+        arrayListSpy.add("test2");
+        System.out.println(arrayListSpy.size());
+
+        when(arrayListSpy.size()).thenReturn(5);
+        verify(arrayListSpy).add("test");
+        System.out.println(arrayListSpy.size());
+
     }
 }
