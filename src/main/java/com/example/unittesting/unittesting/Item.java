@@ -23,6 +23,9 @@ public class Item {
         this.quantity = quantity;
     }
 
+    public Item() {
+    }
+
     public int getId() {
         return id;
     }
