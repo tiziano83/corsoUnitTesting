@@ -65,4 +65,8 @@ public class Item {
     public String toString(){
         return String.format("item [%d,%s,%d,%d]",id,name,price,quantity);
     }
+
+    public void setValue(int i) {
+        value = i;
+    }
 }
