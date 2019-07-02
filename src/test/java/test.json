@@ -1,0 +1,12 @@
+[
+
+  {
+    "id": 1000,"name": "pencil","quantity": 5
+  },
+  {
+    "id": 1001,"name": "pen","quantity": 15
+  },
+  {
+    "id": 1002,"name": "eraser","quantity": 10
+  }
+]
